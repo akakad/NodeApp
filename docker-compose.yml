@@ -3,6 +3,7 @@ services:
   node:
     container_name: nodejs
     image: node
+    hostname: node
     build: .
     restart: always
     ports:
@@ -13,10 +14,12 @@ services:
   db:
     container_name: mongo
     image: mongo
+    hostname: mongo
     ports:
       - "27020:27017"
   web:
     container_name: nginx
     image: nginx
+    hostname: nginx
     ports:
       - "3000:80"
