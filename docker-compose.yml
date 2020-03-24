@@ -14,12 +14,12 @@ services:
   db:
     container_name: mongo
     image: mongo
-    hostname: mongo
+    hostname: localhost
     ports:
       - "27020:27017"
   web:
     container_name: nginx
     image: nginx
-    hostname: nginx
+    hostname: localhost
     ports:
       - "3000:80"
