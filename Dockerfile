@@ -1,8 +1,8 @@
 FROM node:10
-WORKDIR /test
-COPY package.json /test
+WORKDIR /app
+COPY package.json /app
 RUN npm install
-COPY . /test
+COPY . /app
 CMD node node.js
 EXPOSE 5001
 EXPOSE 5002
