@@ -3,7 +3,7 @@ services:
   node:
     container_name: nodejs
     image: node
-    hostname: node
+    hostname: localhost
     build: .
     restart: always
     ports:
