@@ -1,23 +1,12 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
+pipeline {
+  agent {
+      label 'docker-in-docker'
+  }
+  stages{
+    stage('Validate Docker') {
+      steps {
+        sh 'docker info'
+      }
     }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("akakad/NodeApp")
-    }
-
-    stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
-        }
-    }
-
+  }
 }
