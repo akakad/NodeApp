@@ -4,17 +4,16 @@ services:
     container_name: nginx
     image: nginx
     hostname: nginx
-    build: .
     ports:
       - "3000:80"
-    links:
-     - node
-     - db
   node:
     container_name: nodejs
     image: node
     hostname: node
+    build: .
     restart: always
+    links:
+     - db
     ports:
       - "5001:8080"
       - "5002:8080"
