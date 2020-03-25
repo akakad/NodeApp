@@ -1,25 +1,27 @@
 version: '3'
 services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    hostname: nginx
+    build: .
+    ports:
+      - "3000:80"
+    links:
+     - node
+     - db
   node:
     container_name: nodejs
     image: node
-    hostname: localhost
-    build: .
+    hostname: node
     restart: always
     ports:
       - "5001:8080"
       - "5002:8080"
-    links:
-     - db
+  
   db:
     container_name: mongo
     image: mongo
-    hostname: localhost
+    hostname: mongo
     ports:
       - "27020:27017"
-  web:
-    container_name: nginx
-    image: nginx
-    hostname: localhost
-    ports:
-      - "3000:80"
