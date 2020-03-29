@@ -1,20 +1,10 @@
-node {
-    def app
-
-    stage('Clone repository') {
-        /* Cloning the Repository to our Workspace */
-
-        checkout scm
-    }
-    stage('Docker Build') {
-      steps {
-        sh 'docker build -t akakad/nodeap:latest .'
-      }
-    }
-    stage('Test image') {
-        
-        app.inside {
-            echo "Tests passed"
-        }
+agent {
+    // Equivalent to "docker build -f Dockerfile.build --build-arg version=1.0.2 ./build/
+    dockerfile {
+        filename 'Dockerfile.build'
+        dir 'build'
+        label 'my-defined-label'
+        additionalBuildArgs  '--build-arg version=1.0.2'
+        args '-v /tmp:/tmp'
     }
 }
