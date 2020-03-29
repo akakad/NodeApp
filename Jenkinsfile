@@ -6,13 +6,12 @@ node {
 
         checkout scm
     }
-
-    stage('Build image') {
-        /* This builds the actual image */
-
-        app = docker.build("akakad/nodeapp")
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t akakad/nodeap:latest .'
+      }
     }
-
     stage('Test image') {
         
         app.inside {
