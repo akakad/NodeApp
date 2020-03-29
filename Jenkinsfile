@@ -7,7 +7,6 @@ node {
         checkout scm
     }
     stage('Docker Build') {
-      agent any
       steps {
         sh 'docker build -t akakad/nodeap:latest .'
       }
