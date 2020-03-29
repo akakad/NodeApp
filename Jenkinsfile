@@ -17,7 +17,6 @@ pipeline {
                             }
 
                             echo "Complated ..."
-                    }
                 }
             }
         }
