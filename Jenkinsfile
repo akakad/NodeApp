@@ -1,20 +1,19 @@
 pipeline {
-  agent {
-    docker {
-      sudo image 'akakad/nodeapp'
-      args '-d -p 80:80 nodeapp'
-    }
-  }
 
   stages {
-    stage ('Testing') {
+    stage ('Building') {
       steps {
-        sh 'echo testing'
+        sh '''
+        docker run -i --rm -v ./:/src -w /src IMAGE_ID  /bin/bash -c "node" 
+        '''
       }
     }
-    stage ('Deploying') {
+    stage ('dockerization') {
       steps {
-        sh 'echo deploying'
+        sh '''
+        docker build -t your_tag .
+        docker push ...
+        '''
       }
     }
   }
