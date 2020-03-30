@@ -1,20 +1,42 @@
 pipeline {
+    agent any
 
-  stages {
-    stage ('Building') {
-      steps {
-        sh '''
-        docker run -i --rm -v ./:/src -w /src IMAGE_ID  /bin/bash -c "node" 
-        '''
-      }
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    docker_image = docker.build('-f ./Dockerfile .')
+                }
+            }
+        }
+        stage('Test') {
+            parallel {
+                stage('Unit tests') {
+                    agent any
+                    steps {
+                        script {
+                            docker_image.inside("--entrypoint='/start.sh'") {
+                                sh 'cd /var/www/app && vendor/bin/phpunit --testsuite=Unittest'
+                            }
+                        }
+                    }
+                }
+                stage('Health check') {
+                    agent any
+                    steps {
+                        script {
+                            docker_image.inside("--entrypoint='/start.sh'") {
+                                timeout(time: 1, unit: 'MINUTES') {
+                                    retry(5) {
+                                        sleep 5
+                                        sh "curl -sS http://localhost/info | grep 'My API'"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    stage ('dockerization') {
-      steps {
-        sh '''
-        docker build -t your_tag .
-        docker push ...
-        '''
-      }
-    }
-  }
 }
