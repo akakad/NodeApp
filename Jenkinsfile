@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'akakad/nodeapp'
+      sudo image 'akakad/nodeapp'
       args '-d -p 80:80 nodeapp'
     }
   }
