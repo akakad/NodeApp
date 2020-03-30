@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'akakad/NodeApp'
+      image 'akakad/nodeapp'
     }
   }
 
