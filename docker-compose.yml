@@ -4,7 +4,7 @@ services:
     container_name: nginx
     image: nginx
     hostname: nginx
-        build: .
+    build: .
     restart: always
     links:
      - node
