@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        dockerfile {
+        dockercompose {
             filename 'docker-compose.yml'
             dir '.'
         }
