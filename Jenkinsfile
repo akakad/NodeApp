@@ -1,14 +1,14 @@
 pipeline {
     agent {
         docker {
-            filename 'https://github.com/akakad/NodeApp.git'
+            registryUrl 'https://github.com/akakad/NodeApp.git'
             dir '.'
         }
     }
     stages {
-        stage ('test') {
+        stage ('build') {
             steps {
-                echo "Test Done"
+                sh 'docker-compose up -d --build'
             }
         }
     }
