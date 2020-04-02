@@ -1,15 +1,18 @@
 pipeline {
-    agent {
-        docker {
-            registryUrl 'https://github.com/akakad/NodeApp.git'
-            dir '.'
-        }
-    }
-    stages {
-        stage ('build') {
-            steps {
-                sh 'docker-compose up -d --build'
-            }
-        }
-    }
+
+   agent any
+
+   stages {
+       stage('docker-compose') {
+           steps {
+              sh "docker-compose build"
+              sh "docker-compose up -d"
+           }
+       }
+   }
+   post {
+      always {
+         sh "docker-compose up || true"
+      }
+   }   
 }
