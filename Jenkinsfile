@@ -8,11 +8,10 @@ pipeline {
               sh "docker-compose build"
               sh "docker-compose up -d"
            }
+       stage('docker') {
+           steps {
+              sh "docker ps"
+           }
        }
-   }
-   post {
-      always {
-         sh "docker-compose up || true"
-      }
-   }   
+   }  
 }
