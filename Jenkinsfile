@@ -12,10 +12,9 @@ pipeline {
                 sh 'docker-compose up -d --build'
                 }
             }
-            stage ('Test') {
-                steps {
-                    echo "Test Done"
-                }
+        stage ('Test') {
+            steps {
+                echo "Test Done"
             }
         }
     }
