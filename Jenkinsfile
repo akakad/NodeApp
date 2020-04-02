@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            filename 'docker-compose.yml'
+            filename 'https://github.com/akakad/NodeApp.git'
             dir '.'
         }
     }
